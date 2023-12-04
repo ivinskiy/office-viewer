@@ -4,7 +4,11 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { Canvas } from "@react-three/fiber";
 import { Box } from "./components/Box/Box";
-import { CameraControls, PerspectiveCamera } from "@react-three/drei";
+import {
+  CameraControls,
+  PerspectiveCamera,
+  useHelper,
+} from "@react-three/drei";
 import * as THREE from "three";
 import { Plane } from "./components/Plane/Plane";
 import {
@@ -12,6 +16,7 @@ import {
   Outline,
   Selection,
 } from "@react-three/postprocessing";
+import { PointLight } from "./components/PointLight/PointLight";
 
 function App() {
   const controlsRef = useRef<CameraControls | null>(null);
@@ -28,7 +33,7 @@ function App() {
         />
         <color attach="background" args={[0, 0, 0]} />
         <ambientLight />
-        <pointLight position={[5, 5, 5]} castShadow intensity={150} />
+        <PointLight />
         <Selection>
           <EffectComposer multisampling={8} autoClear={false}>
             <Outline
