@@ -12,6 +12,7 @@ import {
 } from "@react-three/postprocessing";
 import { PointLight } from "./components/PointLight/PointLight";
 import { FloorPlan } from "./components/FloorPlan/FloorPlan";
+import { UniFiCustomModel } from "./components/UniFiCustomModel/UniFiCustomModel";
 
 function App() {
   const controlsRef = useRef<CameraControls | null>(null);
@@ -42,6 +43,9 @@ function App() {
           </EffectComposer>
           <Box position={[-1.2, 0.5, 0]} orbitRef={controlsRef} />
           <Box position={[1.2, 0.5, 0]} orbitRef={controlsRef} />
+          <Suspense>
+            <UniFiCustomModel />
+          </Suspense>
         </Selection>
         <Suspense>
           <FloorPlan />
