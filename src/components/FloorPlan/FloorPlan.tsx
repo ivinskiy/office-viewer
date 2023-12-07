@@ -33,7 +33,7 @@ export const FloorPlan: FC<GroupProps> = (props) => {
       <mesh>
         <primitive object={nodes["scan_1"]} />
       </mesh>
-      <mesh receiveShadow>
+      <mesh>
         <primitive object={nodes["FloorNode"]} />
       </mesh>
     </group>

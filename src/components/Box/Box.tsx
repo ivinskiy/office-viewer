@@ -1,11 +1,18 @@
-import { useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { TransformControls } from "@react-three/drei";
 import * as THREE from "three";
 import { TransformControls as TransformControlsImpl } from "three-stdlib";
 import { Select } from "@react-three/postprocessing";
 import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
+import { SelectableObjectProps } from "../../types/selectableObjects";
 
-export const Box = ({ orbitRef, position, ...props }) => {
+export const Box: FC<SelectableObjectProps> = ({
+  orbitRef,
+  selectedObject,
+  onSelectHandler,
+  position,
+  ...props
+}) => {
   // This reference will give us direct access to the mesh
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
@@ -13,6 +20,14 @@ export const Box = ({ orbitRef, position, ...props }) => {
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (selectedObject === meshRef.current?.uuid) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [selectedObject]);
 
   useDisableOrbitControls(transformRef, orbitRef);
 
@@ -41,7 +56,7 @@ export const Box = ({ orbitRef, position, ...props }) => {
             {...props}
             ref={meshRef}
             onClick={() => {
-              setActive(!active);
+              onSelectHandler(meshRef.current ? meshRef.current.uuid : null);
             }}
             castShadow
             receiveShadow

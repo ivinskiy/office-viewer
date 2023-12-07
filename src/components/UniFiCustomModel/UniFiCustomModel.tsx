@@ -1,35 +1,47 @@
-import { useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { TransformControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { TransformControls as TransformControlsImpl } from "three-stdlib";
 import { Select } from "@react-three/postprocessing";
 import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
+import { SelectableObjectProps } from "../../types/selectableObjects";
 
 // Converted from USDZ to GLTF via blender since USDZ does not seem to have good support
-export const UniFiCustomModel = ({ orbitRef, position, ...props }) => {
-  // This reference will give us direct access to the mesh
-  const { nodes } = useGLTF("/UniFi.gltf");
-  console.log(nodes);
-  nodes["Scene"].scale.set(0.1, 0.1, 0.1);
-
+export const UniFiCustomModel: FC<SelectableObjectProps> = ({
+  orbitRef,
+  selectedObject,
+  onSelectHandler,
+  position,
+  ...props
+}) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
   const transformRef = useRef<TransformControlsImpl>(null);
-  // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false);
+
   const [active, setActive] = useState(false);
 
+  // This reference will give us direct access to the mesh
+  const { nodes } = useGLTF("/UniFi.gltf");
+  nodes["Scene"].scale.set(0.1, 0.1, 0.1);
+
   useDisableOrbitControls(transformRef, orbitRef);
+
+  useEffect(() => {
+    if (selectedObject === meshRef.current?.uuid) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [selectedObject]);
 
   return (
     <TransformControls
       ref={transformRef}
-      position={position}
+      position={position ?? [0, 0.5, 0]}
       showX={active}
       showY={active}
       showZ={active}
       onObjectChange={() => {
-        console.log(groupRef.current);
         if (
           transformRef.current &&
           groupRef.current?.parent &&
@@ -46,12 +58,10 @@ export const UniFiCustomModel = ({ orbitRef, position, ...props }) => {
             {...props}
             ref={meshRef}
             onClick={() => {
-              setActive(!active);
+              onSelectHandler(meshRef.current ? meshRef.current.uuid : null);
             }}
             castShadow
             receiveShadow
-            onPointerOver={(event) => setHover(true)}
-            onPointerOut={(event) => setHover(false)}
             scale={[0.5, 0.5, 0.5]}
           >
             <primitive object={nodes["Scene"]} />
@@ -61,3 +71,5 @@ export const UniFiCustomModel = ({ orbitRef, position, ...props }) => {
     </TransformControls>
   );
 };
+
+useGLTF.preload("/UniFi.gltf");
