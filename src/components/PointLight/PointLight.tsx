@@ -1,16 +1,48 @@
-import { useHelper } from "@react-three/drei";
-import { useRef } from "react";
-import { PointLightHelper } from "three";
+import { TransformControls, useHelper } from "@react-three/drei";
+import { useRef, useState } from "react";
+import { DoubleSide, PointLightHelper } from "three";
+import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
 
-export const PointLight = () => {
+export const PointLight = ({ orbitRef }) => {
   const lightRef = useRef(null);
+  const [active, setActive] = useState(false);
+
+  const transformRef = useRef(null);
+
   useHelper(lightRef, PointLightHelper, 1, "red");
+
+  useDisableOrbitControls(transformRef, orbitRef);
+
   return (
-    <pointLight
+    <TransformControls
       position={[3, 3, 3]}
-      castShadow
-      intensity={150}
-      ref={lightRef}
-    />
+      ref={transformRef}
+      showX={active}
+      showY={active}
+      showZ={active}
+    >
+      <group>
+        <mesh
+          onClick={() => {
+            setActive((prev) => !prev);
+          }}
+        >
+          <planeGeometry />
+          <meshStandardMaterial
+            wireframe={true}
+            visible={false}
+            side={DoubleSide}
+          />
+        </mesh>
+        <pointLight
+          castShadow
+          intensity={150}
+          ref={lightRef}
+          onClick={() => {
+            setActive((prev) => !prev);
+          }}
+        />
+      </group>
+    </TransformControls>
   );
 };

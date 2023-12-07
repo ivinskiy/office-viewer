@@ -1,13 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { TransformControls } from "@react-three/drei";
 import * as THREE from "three";
 import { TransformControls as TransformControlsImpl } from "three-stdlib";
-import {
-  Selection,
-  Select,
-  EffectComposer,
-  Outline,
-} from "@react-three/postprocessing";
+import { Select } from "@react-three/postprocessing";
+import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
 
 export const Box = ({ orbitRef, position, ...props }) => {
   // This reference will give us direct access to the mesh
@@ -17,22 +13,8 @@ export const Box = ({ orbitRef, position, ...props }) => {
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  // Return view, these are regular three.js elements expressed in JSX
 
-  useEffect(() => {
-    if (transformRef.current) {
-      const controls = transformRef.current;
-      const callback = (event: THREE.Event) => {
-        //@ts-ignore
-        orbitRef.current.enabled = !event.value;
-      };
-      controls.addEventListener("dragging-changed", callback);
-      return () => {
-        controls.removeEventListener("dragging-changed", callback);
-      };
-    }
-  });
+  useDisableOrbitControls(transformRef, orbitRef);
 
   return (
     <TransformControls
@@ -51,9 +33,10 @@ export const Box = ({ orbitRef, position, ...props }) => {
           groupRef.current.parent.position.y = 0.5;
         }
       }}
+      castShadow
     >
-      <group ref={groupRef}>
-        <Select enabled={active}>
+      <group ref={groupRef} castShadow>
+        <Select enabled={active} castShadow>
           <mesh
             {...props}
             ref={meshRef}
@@ -61,6 +44,7 @@ export const Box = ({ orbitRef, position, ...props }) => {
               setActive(!active);
             }}
             castShadow
+            receiveShadow
             onPointerOver={(event) => setHover(true)}
             onPointerOut={(event) => setHover(false)}
           >

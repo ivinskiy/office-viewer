@@ -7,7 +7,7 @@ export const Plane = () => {
       receiveShadow
     >
       <planeGeometry args={[10, 10]} />
-      <meshBasicMaterial color="gray" />
+      <meshStandardMaterial color="gray" />
     </mesh>
   );
 };

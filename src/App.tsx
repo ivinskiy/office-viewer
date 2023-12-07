@@ -1,14 +1,8 @@
-import { useRef, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { Suspense, useRef } from "react";
 import "./App.css";
 import { Canvas } from "@react-three/fiber";
 import { Box } from "./components/Box/Box";
-import {
-  CameraControls,
-  PerspectiveCamera,
-  useHelper,
-} from "@react-three/drei";
+import { CameraControls, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 import { Plane } from "./components/Plane/Plane";
 import {
@@ -17,6 +11,7 @@ import {
   Selection,
 } from "@react-three/postprocessing";
 import { PointLight } from "./components/PointLight/PointLight";
+import { FloorPlan } from "./components/FloorPlan/FloorPlan";
 
 function App() {
   const controlsRef = useRef<CameraControls | null>(null);
@@ -24,7 +19,7 @@ function App() {
 
   return (
     <div style={{ width: "100vw", height: "75vh" }}>
-      <Canvas shadows>
+      <Canvas shadows={"basic"}>
         <PerspectiveCamera
           ref={cameraRef}
           position={[0, 5, 5]}
@@ -33,7 +28,8 @@ function App() {
         />
         <color attach="background" args={[0, 0, 0]} />
         <ambientLight />
-        <PointLight />
+        <PointLight orbitRef={controlsRef} />
+        <directionalLight position={[10, 10, 10]} />
         <Selection>
           <EffectComposer multisampling={8} autoClear={false}>
             <Outline
@@ -47,7 +43,9 @@ function App() {
           <Box position={[-1.2, 0.5, 0]} orbitRef={controlsRef} />
           <Box position={[1.2, 0.5, 0]} orbitRef={controlsRef} />
         </Selection>
-        <Plane />
+        <Suspense>
+          <FloorPlan />
+        </Suspense>
 
         <CameraControls ref={controlsRef} maxPolarAngle={Math.PI / 2 - 0.1} />
       </Canvas>
