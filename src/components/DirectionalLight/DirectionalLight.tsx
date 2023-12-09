@@ -1,23 +1,28 @@
 import { TransformControls, useHelper } from "@react-three/drei";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import {
   DirectionalLightHelper,
   DoubleSide,
   DirectionalLight as THREEDirectionalLight,
 } from "three";
+import { TransformControls as TransformControlsImpl } from "three-stdlib";
+
 import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
 import { SelectableObjectProps } from "../../types/selectableObjects";
+import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 
 export const DirectionalLight: FC<SelectableObjectProps> = ({
   orbitRef,
-  selectedObject,
-  onSelectHandler,
   position,
 }) => {
   const lightRef = useRef<THREEDirectionalLight>(null);
   const [active, setActive] = useState(false);
 
-  const transformRef = useRef(null);
+  const transformRef = useRef<TransformControlsImpl>(null);
+
+  const [selectedObject, setSelectedObject] = useContext(
+    AdjustableLayerContext
+  );
 
   // Typescript is not happy with this despite the docs
   // @ts-ignore
@@ -26,7 +31,7 @@ export const DirectionalLight: FC<SelectableObjectProps> = ({
   useDisableOrbitControls(transformRef, orbitRef);
 
   useEffect(() => {
-    if (selectedObject === lightRef.current?.uuid) {
+    if (selectedObject?.object?.uuid === lightRef.current?.uuid) {
       setActive(true);
     } else {
       setActive(false);
@@ -44,7 +49,12 @@ export const DirectionalLight: FC<SelectableObjectProps> = ({
       <group>
         <mesh
           onClick={() => {
-            onSelectHandler(lightRef.current ? lightRef.current.uuid : null);
+            if (transformRef.current) {
+              setSelectedObject({
+                object: lightRef.current,
+                transform: transformRef.current,
+              });
+            }
           }}
         >
           <planeGeometry />

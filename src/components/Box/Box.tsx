@@ -1,15 +1,14 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import { TransformControls } from "@react-three/drei";
 import * as THREE from "three";
 import { TransformControls as TransformControlsImpl } from "three-stdlib";
 import { Select } from "@react-three/postprocessing";
 import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
 import { SelectableObjectProps } from "../../types/selectableObjects";
+import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 
 export const Box: FC<SelectableObjectProps> = ({
   orbitRef,
-  selectedObject,
-  onSelectHandler,
   position,
   ...props
 }) => {
@@ -17,12 +16,17 @@ export const Box: FC<SelectableObjectProps> = ({
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
   const transformRef = useRef<TransformControlsImpl>(null);
+
+  const [selectedObject, setSelectedObject] = useContext(
+    AdjustableLayerContext
+  );
+
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (selectedObject === meshRef.current?.uuid) {
+    if (selectedObject?.object?.uuid === meshRef.current?.uuid) {
       setActive(true);
     } else {
       setActive(false);
@@ -39,7 +43,6 @@ export const Box: FC<SelectableObjectProps> = ({
       showY={active}
       showZ={active}
       onObjectChange={() => {
-        console.log(groupRef.current);
         if (
           transformRef.current &&
           groupRef.current?.parent &&
@@ -56,7 +59,12 @@ export const Box: FC<SelectableObjectProps> = ({
             {...props}
             ref={meshRef}
             onClick={() => {
-              onSelectHandler(meshRef.current ? meshRef.current.uuid : null);
+              if (transformRef.current) {
+                setSelectedObject({
+                  object: meshRef.current,
+                  transform: transformRef.current,
+                });
+              }
             }}
             castShadow
             receiveShadow

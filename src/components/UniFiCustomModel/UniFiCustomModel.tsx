@@ -1,16 +1,16 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import { TransformControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { TransformControls as TransformControlsImpl } from "three-stdlib";
 import { Select } from "@react-three/postprocessing";
 import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
 import { SelectableObjectProps } from "../../types/selectableObjects";
+import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 
 // Converted from USDZ to GLTF via blender since USDZ does not seem to have good support
 export const UniFiCustomModel: FC<SelectableObjectProps> = ({
   orbitRef,
-  selectedObject,
-  onSelectHandler,
+  //   selectedObject,
   position,
   ...props
 }) => {
@@ -18,16 +18,19 @@ export const UniFiCustomModel: FC<SelectableObjectProps> = ({
   const groupRef = useRef<THREE.Group>(null);
   const transformRef = useRef<TransformControlsImpl>(null);
 
+  const [selectedObject, setSelectedObject] = useContext(
+    AdjustableLayerContext
+  );
+
   const [active, setActive] = useState(false);
 
-  // This reference will give us direct access to the mesh
   const { nodes } = useGLTF("/UniFi.gltf");
-  nodes["Scene"].scale.set(0.1, 0.1, 0.1);
+  nodes["Scene"].scale.set(0.04, 0.04, 0.04);
 
   useDisableOrbitControls(transformRef, orbitRef);
 
   useEffect(() => {
-    if (selectedObject === meshRef.current?.uuid) {
+    if (selectedObject?.object?.uuid === meshRef.current?.uuid) {
       setActive(true);
     } else {
       setActive(false);
@@ -58,11 +61,15 @@ export const UniFiCustomModel: FC<SelectableObjectProps> = ({
             {...props}
             ref={meshRef}
             onClick={() => {
-              onSelectHandler(meshRef.current ? meshRef.current.uuid : null);
+              if (transformRef.current) {
+                setSelectedObject({
+                  object: meshRef.current,
+                  transform: transformRef.current,
+                });
+              }
             }}
             castShadow
             receiveShadow
-            scale={[0.5, 0.5, 0.5]}
           >
             <primitive object={nodes["Scene"]} />
           </mesh>
