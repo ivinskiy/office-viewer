@@ -5,6 +5,7 @@ export const ObjectSettingsWrapper = styled.div`
   flex-direction: column;
   gap: 16px;
   align-items: center;
+  width: 100%;
 `;
 
 export const InputAndLabelContainer = styled.div`

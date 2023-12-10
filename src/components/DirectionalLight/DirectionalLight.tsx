@@ -14,6 +14,7 @@ import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 export const DirectionalLight: FC<SelectableObjectProps> = ({
   orbitRef,
   position,
+  uuid,
 }) => {
   const lightRef = useRef<THREEDirectionalLight>(null);
   const [active, setActive] = useState(false);
@@ -64,7 +65,7 @@ export const DirectionalLight: FC<SelectableObjectProps> = ({
             side={DoubleSide}
           />
         </mesh>
-        <directionalLight castShadow ref={lightRef} />
+        <directionalLight castShadow ref={lightRef} uuid={uuid} />
       </group>
     </TransformControls>
   );

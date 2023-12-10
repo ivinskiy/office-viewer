@@ -10,9 +10,8 @@ import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 // Converted from USDZ to GLTF via blender since USDZ does not seem to have good support
 export const UniFiCustomModel: FC<SelectableObjectProps> = ({
   orbitRef,
-  //   selectedObject,
+  uuid,
   position,
-  ...props
 }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
@@ -58,8 +57,8 @@ export const UniFiCustomModel: FC<SelectableObjectProps> = ({
       <group ref={groupRef} castShadow>
         <Select enabled={active} castShadow>
           <mesh
-            {...props}
             ref={meshRef}
+            uuid={uuid}
             onClick={() => {
               if (transformRef.current) {
                 setSelectedObject({

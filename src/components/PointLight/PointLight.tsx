@@ -14,6 +14,7 @@ import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 export const PointLight: FC<SelectableObjectProps> = ({
   orbitRef,
   position,
+  uuid,
 }) => {
   const lightRef = useRef<THREEPointLight>(null);
   const [active, setActive] = useState(false);
@@ -63,7 +64,7 @@ export const PointLight: FC<SelectableObjectProps> = ({
             side={DoubleSide}
           />
         </mesh>
-        <pointLight castShadow intensity={150} ref={lightRef} />
+        <pointLight castShadow intensity={150} ref={lightRef} uuid={uuid} />
       </group>
     </TransformControls>
   );

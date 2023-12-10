@@ -7,7 +7,6 @@ import { TransformModeSettings } from "./TransformModeSettings";
 
 export const ObjectSettings = () => {
   const [selectedObject] = useContext(AdjustableLayerContext);
-  console.log(selectedObject);
   return (
     <ObjectSettingsWrapper>
       <h3>{selectedObject?.object?.type}</h3>

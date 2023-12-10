@@ -11,8 +11,16 @@ import { StyledCard } from "./Card.styles";
  * @returns
  */
 export const Card: FC<{
+  setObjectsInScene: React.Dispatch<
+    React.SetStateAction<
+      {
+        type: "UniFi" | "Box" | "PointLight" | "DirectionalLight";
+        uuid: string;
+      }[]
+    >
+  >;
   ambientLight: THREE.AmbientLight | null;
-}> = ({ ambientLight }) => {
+}> = ({ setObjectsInScene, ambientLight }) => {
   const [selectedObject] = useContext(AdjustableLayerContext);
   return (
     <StyledCard>
@@ -20,14 +28,21 @@ export const Card: FC<{
         <AmbientLightSettings ambientLight={ambientLight} />
       )}
       {selectedObject && <ObjectSettings key={selectedObject.object?.uuid} />}
-      {/* 
-      <button
-        onClick={() => {
-          selectedObject?.object?.removeFromParent();
-        }}
-      >
-        Delete
-      </button> */}
+
+      {selectedObject && (
+        <button
+          onClick={() => {
+            setObjectsInScene((prev) => {
+              const filteredArray = prev.filter(
+                (object) => object.uuid !== selectedObject?.object?.uuid
+              );
+              return filteredArray;
+            });
+          }}
+        >
+          Delete
+        </button>
+      )}
     </StyledCard>
   );
 };

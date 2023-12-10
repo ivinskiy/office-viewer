@@ -12,9 +12,11 @@ export const LightSettings: FC<{ selectedObject: AdjustableObject }> = ({
         <p>Intensity</p>
         <input
           type="range"
-          defaultValue={selectedObject.object.intensity}
+          defaultValue={(selectedObject?.object as THREE.Light).intensity}
           onChange={(event) => {
-            selectedObject.object.intensity = Number(event.target.value);
+            (selectedObject?.object as THREE.Light).intensity = Number(
+              event.target.value
+            );
           }}
           max={1000}
           min={0}
@@ -28,7 +30,7 @@ export const LightSettings: FC<{ selectedObject: AdjustableObject }> = ({
           defaultValue={"#ffffff"}
           onChange={(event) => {
             const color = new Color(event.target.value);
-            selectedObject.object.color = color;
+            (selectedObject?.object as THREE.Light).color = color;
           }}
         />
       </div>

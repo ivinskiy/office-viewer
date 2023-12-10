@@ -10,7 +10,7 @@ import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 export const Box: FC<SelectableObjectProps> = ({
   orbitRef,
   position,
-  ...props
+  uuid,
 }) => {
   // This reference will give us direct access to the mesh
   const meshRef = useRef<THREE.Mesh>(null);
@@ -56,7 +56,7 @@ export const Box: FC<SelectableObjectProps> = ({
       <group ref={groupRef} castShadow>
         <Select enabled={active} castShadow>
           <mesh
-            {...props}
+            uuid={uuid}
             ref={meshRef}
             onClick={() => {
               if (transformRef.current) {
