@@ -68,8 +68,8 @@ export const Box: FC<SelectableObjectProps> = ({
             }}
             castShadow
             receiveShadow
-            onPointerOver={(event) => setHover(true)}
-            onPointerOut={(event) => setHover(false)}
+            onPointerOver={() => setHover(true)}
+            onPointerOut={() => setHover(false)}
           >
             <boxGeometry args={[1, 1, 1]} />
             <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />

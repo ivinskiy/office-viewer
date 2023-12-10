@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
 import { AdjustableObject } from "../../context/AdjustableLayerContext";
 import {
   InputAndLabelContainer,
