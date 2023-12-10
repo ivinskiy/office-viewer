@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
+# Ubiquiti UniFi office viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Ubiquiti office viewer!
 
-Currently, two official plugins are available:
+## User instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Here you are able to view, place and adjust models of the UniFi in an office environment. There is a directional light and a point light already in the scene in order to provide some basic lightning. Feel free to move it around.
 
-## Expanding the ESLint configuration
+In order to place an item into the scene, click the button "Place items" and select an item from the menu you wish to place.
+Afterwards, it is possible to select the model or light to adjust different settings in the menu to the left, and move it around using the transform controls.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+You are also able to delete the object using the delete button in the menu to the right.
 
-- Configure the top-level `parserOptions` property like this:
+## Limitations
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+You can only place out a box model, a UniFi model and two types of lights into the scene.
+Properties properties are only adjusteable via the transform controls, with the exception of scale.
+You can also only select one object at a time, and there is no collision between walls and objects, meaning that you can place objects inside the walls.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Future work (suggestions)
+
+- Enable more properties to be editeable via the menu to the left.
+- Add collision to the walls.
+- Add more different types of models.
+- Create a drag and drop menu instead of just clicking (similarly as it is now here https://design.ui.com/)

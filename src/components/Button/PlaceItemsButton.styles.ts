@@ -7,7 +7,12 @@ export const StyledButton = styled.button<{ $toggled: boolean }>`
   border-radius: 8px;
   transition: all 0.5s;
   position: absolute;
-  top: 16px;
+  top: 72px;
   left: 252px;
   width: 100px;
+`;
+
+export const StyledInfoButton = styled(StyledButton)`
+  left: calc(252px);
+  top: 16px;
 `;

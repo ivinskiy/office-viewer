@@ -5,6 +5,10 @@ import { ObjectSettingsWrapper } from "./ObjectSettings.styles";
 import { ScaleSettings } from "./ScaleSettings";
 import { TransformModeSettings } from "./TransformModeSettings";
 
+/**
+ *
+ * @returns Settings in the card. Currently only scale and transform mode
+ */
 export const ObjectSettings = () => {
   const [selectedObject] = useContext(AdjustableLayerContext);
   return (

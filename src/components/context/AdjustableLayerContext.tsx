@@ -26,7 +26,7 @@ export const AdjustableLayerContext = createContext<AdjustableLayerContextType>(
 /**
  *
  * A context for storing the currently selected object and showing the properties in the card
- * @returns
+ * @returns A context provider containing the currently selected object and it's transform
  */
 export const AdjustableLayerContextProvider: FC<{ children: ReactNode }> = ({
   children,

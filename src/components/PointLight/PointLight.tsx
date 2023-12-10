@@ -11,6 +11,13 @@ import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
 import { SelectableObjectProps } from "../../types/selectableObjects";
 import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 
+/**
+ *
+ * @param orbitRef: The ref to the camera controls (OrbitControls)
+ * @param position: Initial position
+ * @param uuid: Unique identifier
+ * @returns A selectable and moveable Point Light
+ */
 export const PointLight: FC<SelectableObjectProps> = ({
   orbitRef,
   position,

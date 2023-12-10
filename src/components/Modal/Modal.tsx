@@ -1,6 +1,11 @@
 import { FC } from "react";
 import { StyledModal } from "./Modal.styles";
-
+/**
+ *
+ * @param toggled: Boolean to see if modal is toggled
+ * @param setObjectsInScene: Setter for current objects in the scene
+ * @returns A modal where you can place new items to the scene
+ */
 export const Modal: FC<{
   toggled: boolean;
   setObjectsInScene: React.Dispatch<

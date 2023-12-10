@@ -7,6 +7,13 @@ import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
 import { SelectableObjectProps } from "../../types/selectableObjects";
 import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 
+/**
+ *
+ * @param orbitRef: The ref to the camera controls (OrbitControls)
+ * @param position: Initial position
+ * @param uuid: Unique identifier
+ * @returns A Box mesh with sizes 1, 1, 1, fully selecteable and transformable using TransformControls
+ */
 export const Box: FC<SelectableObjectProps> = ({
   orbitRef,
   position,

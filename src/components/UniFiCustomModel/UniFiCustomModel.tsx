@@ -7,7 +7,13 @@ import { useDisableOrbitControls } from "../../hooks/useDisableOrbitControls";
 import { SelectableObjectProps } from "../../types/selectableObjects";
 import { AdjustableLayerContext } from "../context/AdjustableLayerContext";
 
-// Converted from USDZ to GLTF via blender since USDZ does not seem to have good support
+/**
+ * Converted from USDZ to GLTF via blender since USDZ does not seem to have good support
+ * @param orbitRef: The ref to the camera controls (OrbitControls)
+ * @param position: Initial position
+ * @param uuid: Unique identifier
+ * @returns A GLTF mesh of the UniFi model, fully selecteable and transformable using TransformControls
+ */
 export const UniFiCustomModel: FC<SelectableObjectProps> = ({
   orbitRef,
   uuid,

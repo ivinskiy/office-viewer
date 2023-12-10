@@ -27,12 +27,6 @@ export const PositionSettings: FC<{ selectedObject: AdjustableObject }> = ({
             onChange={(event) => {
               if (selectedObject.object && selectedObject.transform) {
                 selectedObject.object.position.x = Number(event.target.value);
-                // selectedObject.transform.position.x = Number(
-                //   event.target.value
-                // );
-                // selectedObject.transform.traverse((child) => {
-                //   child.position.x = Number(event.target.value);
-                // });
               }
             }}
           />

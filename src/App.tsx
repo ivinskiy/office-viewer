@@ -17,7 +17,9 @@ import { Card } from "./components/Card/Card";
 import { AdjustableLayerContext } from "./components/context/AdjustableLayerContext";
 import { AmbientLight } from "three";
 import { Modal } from "./components/Modal/Modal";
-import { PlaceItemsButton } from "./components/PlaceItemsButton/PlaceItemsButton";
+import { PlaceItemsButton } from "./components/Button/PlaceItemsButton";
+import { InfoButton } from "./components/Button/InfoButton";
+import { InfoModal } from "./components/Modal/InfoModal";
 
 function App() {
   const [objectsInScene, setObjectsInScene] = useState<
@@ -28,6 +30,7 @@ function App() {
   >([]);
   const [placeItemsModalsIsToggled, setPlaceItemsModalIsToggled] =
     useState(false);
+  const [infoModalIsToggled, setInfoModalIsToggled] = useState(false);
   const controlsRef = useRef<CameraControls | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const [ambientLight, setAmbientLight] = useState<AmbientLight | null>(null);
@@ -41,6 +44,7 @@ function App() {
         onPointerMissed={() => {
           setSelectedObject(null);
           setPlaceItemsModalIsToggled(false);
+          setInfoModalIsToggled(false);
         }}
       >
         <PerspectiveCamera
@@ -119,8 +123,17 @@ function App() {
         toggled={placeItemsModalsIsToggled}
         onClick={() => {
           setPlaceItemsModalIsToggled((prev) => !prev);
+          setInfoModalIsToggled(false);
         }}
       />
+      <InfoButton
+        onClick={() => {
+          setInfoModalIsToggled((prev) => !prev);
+          setPlaceItemsModalIsToggled(false);
+        }}
+        toggled={infoModalIsToggled}
+      />
+      <InfoModal toggled={infoModalIsToggled} />
       <Modal
         setObjectsInScene={setObjectsInScene}
         toggled={placeItemsModalsIsToggled}
