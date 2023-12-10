@@ -1,6 +1,11 @@
 import { FC } from "react";
 import { InfoModalWrapper } from "./InfoModal.styles";
 
+/**
+ *
+ * @param toggled: Boolean to see if modal is toggled
+ * @returns A info modal with some user information
+ */
 export const InfoModal: FC<{ toggled: boolean }> = ({ toggled }) => {
   return (
     <InfoModalWrapper $toggled={toggled}>

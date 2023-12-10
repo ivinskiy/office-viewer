@@ -115,7 +115,6 @@ function App() {
         <Suspense>
           <FloorPlan />
         </Suspense>
-
         <CameraControls ref={controlsRef} maxPolarAngle={Math.PI / 2 - 0.1} />
       </Canvas>
       <Card ambientLight={ambientLight} setObjectsInScene={setObjectsInScene} />

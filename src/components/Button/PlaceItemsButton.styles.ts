@@ -13,6 +13,11 @@ export const StyledButton = styled.button<{ $toggled: boolean }>`
 `;
 
 export const StyledInfoButton = styled(StyledButton)`
-  left: calc(252px);
+  left: 252px;
+  top: 16px;
+`;
+
+export const StyledSettingsButton = styled(StyledButton)`
+  left: 16px;
   top: 16px;
 `;

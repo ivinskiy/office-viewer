@@ -5,10 +5,11 @@ import { ObjectSettings } from "../Settings/ObjectSettings/ObjectSettings";
 import { StyledCard } from "./Card.styles";
 /**
  *
- * @param param0
+ * @param setObjectsInScene: Setter for objects in the scene (setState setter).
+ * @param ambientLight: Reference to the ambient light if nothing else is selected.
  *
- * TODO in the future: Make position and rotation connected to transforms
- * @returns
+ * @returns A card / menu with different settings depending on what is selected.
+ * @todo Make position, scale and rotation settings get updated together with the transform controls
  */
 export const Card: FC<{
   setObjectsInScene: React.Dispatch<

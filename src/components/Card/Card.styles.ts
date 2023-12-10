@@ -7,7 +7,8 @@ export const StyledCard = styled.div`
   gap: 16px;
   border-radius: 20px;
   width: 220px;
-  height: 320px;
+  height: 116px;
+  overflow: scroll;
   background-color: rgb(238, 238, 241);
   position: absolute;
   top: 16px;
@@ -17,5 +18,8 @@ export const StyledCard = styled.div`
   }
   button {
     width: fit-content;
+  }
+  @media (min-width: 600px) {
+    height: 320px;
   }
 `;
