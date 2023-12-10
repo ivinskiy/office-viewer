@@ -1,6 +1,11 @@
 # Ubiquiti UniFi office viewer
 
 Welcome to the Ubiquiti office viewer!
+The url to the deployed application: https://regal-biscochitos-3dc186.netlify.app/
+
+## Getting started
+
+Clone this repository, and then run the commands npm install and npm run dev.
 
 ## User instructions
 
@@ -24,3 +29,4 @@ You can also only select one object at a time, and there is no collision between
 - Add more different types of models.
 - Create a drag and drop menu instead of just clicking (similarly as it is now here https://design.ui.com/)
 - Better mobile experience
+- Add more tests
