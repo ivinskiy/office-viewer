@@ -1,6 +1,6 @@
 # 3D model office viewer
 
-Welcome to my 3D model office viewer!
+Welcome to my 3D model office viewer! It's made in ThreeJS, React Fiber Three and TailwindCSS for styling.
 The url to the deployed application: https://regal-biscochitos-3dc186.netlify.app/
 
 ## Getting started
